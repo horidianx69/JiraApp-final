@@ -1,7 +1,11 @@
-const mongoose= require('mongoose')
+const mongoose = require("mongoose");
+require("dotenv").config();
 
-const connectDB= async()=>{
-    await mongoose.connect("mongodb+srv://ayushshuklaps:Ayush.Shukla123!%40%23@cluster0.cn79tbq.mongodb.net/taskmanager?retryWrites=true&w=majority&appName=Cluster0").then(()=>(console.log('DB connected'))).catch((err)=>(console.log('Cannot connect to DB',err)))
-}
+const connectDB = async () => {
+  await mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => console.log("DB connected"))
+    .catch((err) => console.log("Cannot connect to DB", err));
+};
 
-module.exports=connectDB;
+module.exports = connectDB;

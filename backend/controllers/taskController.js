@@ -1,6 +1,6 @@
 const Task = require("../models/taskModel");
 
-const createTask = async (req, res) => {
+exports.createTask = async (req, res) => {
   try {
     const { title, desc, priority, dueDate, completed } = req.body;
 
@@ -21,7 +21,7 @@ const createTask = async (req, res) => {
 
 // Get All Task for Logged In User-
 
-const getTasks = async (req, res) => {
+exports.getTasks = async (req, res) => {
   try {
     const tasks = await Task.find({ owner: req.user.id }).sort({
       createdAt: -1,
@@ -33,7 +33,7 @@ const getTasks = async (req, res) => {
 };
 
 // Get single task by ID-
-const getTaskById = async (req, res) => {
+exports.getTaskById = async (req, res) => {
   try {
     const task = await Task.findOne({ _id: req.params.id, owner: req.user.id });
     if (!task) {
@@ -49,7 +49,7 @@ const getTaskById = async (req, res) => {
 
 //Update a Task-
 
-const updateTask = async (req, res) => {
+exports.updateTask = async (req, res) => {
   try {
     const data = { ...req.body };
     if (data.completed !== undefined) {
@@ -70,3 +70,19 @@ const updateTask = async (req, res) => {
     res.status(400).json({ success: false, message: error.message });
   }
 };
+
+//Delete A Task
+
+exports.deleteTask= async(req,res)=>{
+  try {
+    const deleted= await Task.findOneAndDelete({_id:req.params.id,owner:req.user.id})
+
+    if(!deleted){
+      return res.status(404).json({success:false,message:'Not deleted,Task not found or not yours'})
+    }
+    res.json({success:true,message:'Task deleted'})
+
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });     
+  }
+}

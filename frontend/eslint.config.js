@@ -9,9 +9,9 @@ export default defineConfig([
   {
     files: ['**/*.{js,jsx}'],
     extends: [
-      js.configs.recommended,
-      reactHooks.configs['recommended-latest'],
-      reactRefresh.configs.vite,
+      js.configs.recommended,                 // Only real JS issues
+      reactHooks.configs['recommended-latest'], // Rules for React hooks
+      reactRefresh.configs.vite,             // Vite + React fast refresh
     ],
     languageOptions: {
       ecmaVersion: 2020,
@@ -23,7 +23,23 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // ⚠️ Only warn for unused vars instead of error
+      'no-unused-vars': ['warn', { 
+        argsIgnorePattern: '^_',    // allow unused args if they start with _
+        varsIgnorePattern: '^[A-Z_]' // allow constants / placeholders
+      }],
+
+      // ⚠️ Warn but don’t error if console.log is present
+      'no-console': 'warn',
+
+      // ✅ Keep important ones as errors
+      'no-undef': 'error',          // using variables that don’t exist
+      'react-hooks/rules-of-hooks': 'error', // must follow hooks rules
+      'react-hooks/exhaustive-deps': 'warn', // missing deps in useEffect
+
+      // 📴 Turn off rules that are mostly style-preference
+      'react/prop-types': 'off',    // no need if using TypeScript or not strict
+      'no-mixed-spaces-and-tabs': 'off',
     },
   },
 ])

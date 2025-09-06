@@ -95,7 +95,7 @@ const Login = ({ onSubmit, onSwitchMode }) => {
       <form onSubmit={handleSubmit} className="space-y-4">
         {feilds.map(({ name, type, placeholder, icon: Icon, isPassword }) => (
           <div key={name} className={INPUTWRAPPER}>
-            <Icon className="w-5 h-5 text-gray-400" />
+            <Icon className="w-5 h-5 text-gray-400 mr-2" />
             <input
               type={isPassword ? (showPassword ? "text" : "password") : type}
               name={name}

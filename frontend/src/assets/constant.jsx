@@ -151,7 +151,7 @@ export const TIP_CARD = {
 export const FIELDS = [
     { name: "name", type: "text", placeholder: "Full Name", icon: User },
     { name: "email", type: "email", placeholder: "Email", icon: Mail },
-    { name: "password", type: "password", placeholder: "Password", icon: Lock },
+    { name: "password", type: "password", placeholder: "Password", icon: Lock,isPassword:true },
 ]
 
 export const Inputwrapper =

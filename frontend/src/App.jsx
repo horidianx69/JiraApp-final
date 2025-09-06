@@ -3,6 +3,7 @@ import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import Layout from "./components/Layout";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   const navigate = useNavigate();
@@ -82,7 +83,7 @@ function App() {
 
       {/* Protected routes */}
       <Route element={<ProtectedLayout />}>
-        <Route path="/" element={<div>Home Page</div>} />
+        <Route path="/" element={<Dashboard />} />
       </Route>
     </Routes>
   );

@@ -10,6 +10,7 @@ import {
     Calendar,
 } from "lucide-react"
 
+
 // BACKEND TEST 
 // DUMMY DATA
 const backendDummy = [
@@ -87,6 +88,7 @@ export const feilds=[
 
 ]
 
+
 // PROFILE CSS
 export const INPUT_WRAPPER =
     "flex items-center border border-purple-100 rounded-lg px-3 py-2.5 focus-within:ring-2 focus-within:ring-purple-500 focus-within:border-purple-500 transition-all duration-200"
@@ -116,12 +118,31 @@ export const menuItems = [
     { text: "Completed Tasks", path: "/complete", icon: <CheckCircle2 className="w-5 h-5" /> },
 ]
 
+// export const SIDEBAR_CLASSES = {
+//     desktop: "hidden md:flex flex-col fixed h-full w-20 lg:w-64 bg-white/90 backdrop-blur-sm border-r border-purple-100 shadow-sm z-20 transition-all duration-300",
+
+
+//     mobileButton: "absolute md:hidden top-6 left-5 z-50 bg-purple-600 text-white p-2 rounded-full shadow-lg hover:bg-purple-700 transition",
+//     mobileDrawerBackdrop: "fixed inset-0 bg-black/40 backdrop-blur-sm",
+//     mobileDrawer: "absolute top-0 left-0 w-64 h-full bg-white/90 backdrop-blur-md border-r border-purple-100 shadow-lg z-50 p-4 flex flex-col space-y-6",
+
+// }
+
 export const SIDEBAR_CLASSES = {
-    desktop: "hidden md:flex flex-col fixed h-full w-20 lg:w-64 bg-white/90 backdrop-blur-sm border-r border-purple-100 shadow-sm z-20 transition-all duration-300",
-    mobileButton: "absolute md:hidden top-25 left-5 z-50 bg-purple-600 text-white p-2 rounded-full shadow-lg hover:bg-purple-700 transition",
-    mobileDrawerBackdrop: "fixed inset-0 bg-black/40 backdrop-blur-sm",
-    mobileDrawer: "absolute top-0 left-0 w-64 h-full bg-white/90 backdrop-blur-md border-r border-purple-100 shadow-lg z-50 p-4 flex flex-col space-y-6",
-}
+  desktop:
+    "hidden md:flex flex-col fixed h-full w-20 lg:w-64 bg-white/90 backdrop-blur-sm border-r border-purple-100 shadow-sm z-20 transition-all duration-300",
+
+mobileButton:
+  "md:hidden bg-rose-600 text-white p-2 rounded-full shadow hover:bg-rose-700 transition ml-4 mt-4 ",
+
+
+  mobileDrawerBackdrop:
+    "fixed inset-0 bg-black/40 backdrop-blur-sm",
+
+  mobileDrawer:
+    "absolute top-0 left-0 w-64 h-full bg-white/90 backdrop-blur-md border-r border-purple-100 shadow-lg z-50 p-4 flex flex-col space-y-6",
+};
+
 
 export const LINK_CLASSES = {
     base: "group flex items-center px-4 py-3 rounded-xl transition-all duration-300",

@@ -2,12 +2,23 @@ import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import {
   BACK_BUTTON,
+  DANGER_BTN,
   FULL_BUTTON,
   INPUT_WRAPPER,
   personalFields,
   SECTION_WRAPPER,
+  securityFields,
 } from "../assets/constant";
-import { ChevronLeft, Save, UserCircle, Eye, EyeOff } from "lucide-react";
+import {
+  ChevronLeft,
+  Save,
+  UserCircle,
+  Eye,
+  EyeOff,
+  Shield,
+  Lock,
+  LogOut,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -16,11 +27,15 @@ const Profile = ({ user, setCurrentUser, onLogout }) => {
   const API_URL = "http://localhost:3000";
   const [profile, setProfile] = useState({ name: "", email: "" });
   const [passwords, setPasswords] = useState({
-    oldPassword: "",
+    currentPassword: "",
     newPassword: "",
     confirmNewPassword: "",
   });
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState({
+    currentPassword: false,
+    newPassword: false,
+    confirmNewPassword: false,
+  });
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -75,7 +90,41 @@ const Profile = ({ user, setCurrentUser, onLogout }) => {
     } catch (error) {
       toast.error(error.response?.data?.message || "Error updating profile");
     }
-  }; // ✅ missing closing brace added
+  };
+  const changePassword = async (e) => {
+    e.preventDefault();
+    if (passwords.newPassword !== passwords.confirmNewPassword) {
+      toast.error("New passwords do not match");
+      return;
+    }
+    try {
+      const token = localStorage.getItem("token");
+      const { data } = await axios.put(
+        `${API_URL}/api/user/password`,
+        {
+          currentPassword: passwords.currentPassword,
+          newPassword: passwords.newPassword,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (data.success) {
+        toast.success("Password changed successfully");
+        setPasswords({
+          currentPassword: "",
+          newPassword: "",
+          confirmNewPassword: "",
+        });
+      } else {
+        toast.error(data.message || "Failed to change password");
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Error changing password");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -113,17 +162,11 @@ const Profile = ({ user, setCurrentUser, onLogout }) => {
 
               <form onSubmit={saveProfile} className="space-y-4">
                 {personalFields.map(
-                  ({ name, type, placeholder, icon: Icon, isPassword }) => (
+                  ({ name, type, placeholder, icon: Icon }) => (
                     <div key={name} className={INPUT_WRAPPER}>
-                      <Icon className="text-purple-500 w-5 h-5 mr-2" />
+                      <Icon className="text-rose-500 w-5 h-5 mr-2" />
                       <input
-                        type={
-                          isPassword
-                            ? showPassword
-                              ? "text"
-                              : "password"
-                            : type
-                        }
+                        type={type}
                         placeholder={placeholder}
                         value={profile[name]}
                         onChange={(e) =>
@@ -132,28 +175,75 @@ const Profile = ({ user, setCurrentUser, onLogout }) => {
                         className="w-full focus:outline-none text-sm text-gray-700"
                         required
                       />
-                      {isPassword && (
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setShowPassword(!showPassword);
-                          }}
-                          className="ml-2 text-gray-400 hover:text-red-400 transition-colors"
-                        >
-                          {showPassword ? (
-                            <EyeOff className="w-5 h-5" />
-                          ) : (
-                            <Eye className="w-5 h-5" />
-                          )}
-                        </button>
-                      )}
                     </div>
                   )
                 )}
+
                 <button className={FULL_BUTTON}>
                   <Save className="w-4 h-4 mr-2" />
                   Save Changes
                 </button>
+              </form>
+            </section>
+
+            <section className={SECTION_WRAPPER}>
+              <div className="flex items-center gap-2 mb-6">
+                <Shield className="w-5 h-5 text-rose-600" />
+                <h2 className="text-xl font-semi-bold text-gray-800">
+                  Security
+                </h2>
+              </div>
+
+              <form onSubmit={changePassword} className="space-y-4">
+                {securityFields.map(({ name, placeholder }) => (
+                  <div
+                    key={name}
+                    className={`${INPUT_WRAPPER} flex items-center`}
+                  >
+                    <Lock className="text-rose-500 w-5 h-5 mr-2" />
+                    <input
+                      type={showPassword[name] ? "text" : "password"}
+                      placeholder={placeholder}
+                      value={passwords[name]}
+                      onChange={(e) =>
+                        setPasswords({ ...passwords, [name]: e.target.value })
+                      }
+                      className="w-full focus:outline-none text-sm text-gray-700"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setShowPassword((prev) => ({
+                          ...prev,
+                          [name]: !prev[name],
+                        }))
+                      }
+                      className="ml-2 text-gray-500 hover:text-gray-700"
+                    >
+                      {showPassword[name] ? (
+                        <EyeOff className="w-5 h-5" />
+                      ) : (
+                        <Eye className="w-5 h-5" />
+                      )}
+                    </button>
+                  </div>
+                ))}
+
+                <button className={FULL_BUTTON}>
+                  <Save className="w-4 h-4 mr-2" />
+                  Change Password
+                </button>
+
+                <div className="mt-8 pt-6 border-t border-purple-100">
+                  <button
+                    className={`${DANGER_BTN} flex items-center justify-around`}
+                    onClick={onLogout}
+                  >
+                    <LogOut className="w-4 h-4 ml-6 text-red-600 font-semibold" />
+                    <h3 className="text-sm font-medium mr-6">Logout</h3>
+                  </button>
+                </div>
               </form>
             </section>
           </div>

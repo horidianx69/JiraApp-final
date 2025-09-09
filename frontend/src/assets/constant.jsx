@@ -106,10 +106,11 @@ export const personalFields = [
 ]
 
 export const securityFields = [
-    { name: "current", placeholder: "Current Password" },
-    { name: "new", placeholder: "New Password" },
-    { name: "confirm", placeholder: "Confirm Password" },
+  { name: "currentPassword", placeholder: "Current Password" },
+  { name: "newPassword", placeholder: "New Password" },
+  { name: "confirmNewPassword", placeholder: "Confirm Password" },
 ];
+
 
 // SIDEBAR 
 export const menuItems = [

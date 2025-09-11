@@ -20,8 +20,7 @@ import {
 import { Calendar1Icon, Filter, HomeIcon, Plus, PlusIcon } from "lucide-react";
 import { useOutletContext } from "react-router-dom";
 import TaskItem from "./TaskItem";
-import TaskModel from "./TaskModel"; 
-
+import TaskModel from "./TaskModel";
 
 const API_BASE = "http://localhost:3000/api/tasks";
 
@@ -210,18 +209,23 @@ const Dashboard = () => {
           )}
         </div>
         {/* Add task items */}
-        <div onClick={() => setShowModal(true)} className="hidden md:flex items-center justify-center p-4 border-2 border-dashed border-rose-200 rounded-xl hover:border-rose-400 bg-rose-50/50 cursor-pointer transition-colors">
+        <div
+          onClick={() => setShowModal(true)}
+          className="hidden md:flex items-center justify-center p-4 border-2 border-dashed border-rose-200 rounded-xl hover:border-rose-400 bg-rose-50/50 cursor-pointer transition-colors"
+        >
           <PlusIcon className="w-5 h-5 text-rose-500 mr-2"></PlusIcon>
           <span className="font-medium text-rose-500">Add Task</span>
         </div>
 
         {/* Modal */}
-        <TaskModel isOpen={showModal || !selectedTask}
+        <TaskModel
+          isOpen={showModal}
           onClose={() => {
             setShowModal(false);
             setSelectedTask(null);
           }}
-          taskToEdit={selectedTask} onSave={handleTaskSave}
+          taskToEdit={selectedTask}
+          onSave={handleTaskSave}
         />
       </div>
     </div>

@@ -4,7 +4,15 @@ import {
   DEFAULT_TASK,
   priorityStyles,
 } from "../assets/constant";
-import { AlignLeft, Calendar, CheckCircle, Flag, PlusCircle, Save, X } from "lucide-react";
+import {
+  AlignLeft,
+  Calendar,
+  CheckCircle,
+  Flag,
+  PlusCircle,
+  Save,
+  X,
+} from "lucide-react";
 
 const API_BASE = "http://localhost:3000/api/tasks";
 
@@ -92,6 +100,8 @@ const TaskModel = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
     },
     [taskData, today, getHeaders, onSave, onClose, onLogout]
   );
+
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 backdrop-blur-sm bg-black/20 z-50 flex items-center justify-center p-4">
@@ -187,14 +197,54 @@ const TaskModel = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
               />
             </div>
           </div>
-          
-          <div>
-              <label className=" flex item-center gap-1 text-sm font-medium text-gray-700 mb-2">
-                <CheckCircle className="w-4 h-4 mr-2 text-rose-500" /> Status
-              </label>
-              <div className="flex gap-4"></div>
-          </div>
 
+          <div>
+            <label className=" flex item-center gap-1 text-sm font-medium text-gray-700 mb-2">
+              <CheckCircle className="w-4 h-4 mr-2 text-rose-500" /> Status
+            </label>
+            <div className="flex gap-4">
+              <label className="flex items-center">
+                <input
+                  type="radio"
+                  name="completed"
+                  value="Yes"
+                  checked={taskData.completed === "Yes"}
+                  onChange={handleChange}
+                  className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                />
+                <span className="ml-2 text-sm text-gray-700">Completed</span>
+              </label>
+
+              <label className="flex items-center">
+                <input
+                  type="radio"
+                  name="completed"
+                  value="No"
+                  checked={taskData.completed === "No"}
+                  onChange={handleChange}
+                  className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                />
+                <span className="ml-2 text-sm text-gray-700">In Progress</span>
+              </label>
+            </div>
+          </div>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white font-medium py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 disabled:opacity-50 hover:shadow-md transition-all duration-200"
+          >
+            {loading ? (
+              "Saving..."
+            ) : taskData.id ? (
+              <>
+                <Save className="w-4 h-4" /> Update Task
+              </>
+            ) : (
+              <>
+                <PlusCircle className="w-4 h-4" /> Create Task
+              </>
+            )}
+          </button>
         </form>
       </div>
     </div>

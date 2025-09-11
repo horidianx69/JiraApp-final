@@ -52,7 +52,7 @@ function App() {
   const ProtectedLayout = () => {
     return (
       <Layout user={currentUser} onLogout={handleLogout}>
-        <Outlet />
+        <Outlet/>
       </Layout>
     );
   };

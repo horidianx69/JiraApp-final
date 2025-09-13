@@ -24,6 +24,7 @@ const TaskModel = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
 
   useEffect(() => {
     if (!isOpen) return;
+
     if (taskToEdit) {
       const normalized =
         taskToEdit.completed === "true" ||
@@ -36,17 +37,18 @@ const TaskModel = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
       setTaskData({
         ...DEFAULT_TASK,
         title: taskToEdit.title || "",
-        description: taskToEdit.description || "",
-        priority: taskToEdit.priority || "Low",
+        description: taskToEdit.description || taskToEdit.desc || "",
+        priority: (taskToEdit.priority || "low").toLowerCase(),
         dueDate: taskToEdit.dueDate?.split("T")[0] || "",
         completed: normalized,
-        id: taskToEdit.id || null,
+        id: taskToEdit.id || taskToEdit._id || null,
       });
     } else {
-      setTaskData(DEFAULT_TASK);
+      setTaskData({ ...DEFAULT_TASK });
     }
+
     setError(null);
-  }, [isOpen, taskToEdit]); // ✅ deps
+  }, [isOpen, taskToEdit]);
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
@@ -74,11 +76,20 @@ const TaskModel = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
 
       try {
         const isEdit = Boolean(taskData.id);
-        const url = isEdit ? `${API_BASE}/${taskData.id}` : `${API_BASE}/gp`;
+        console.log("Submitting task:", taskData);
+
+        console.log("taskData id:", taskData.id, "isEdit:", isEdit);
+        const { id, ...payloadWithoutId } = {
+          ...taskData,
+          priority: taskData.priority.toLowerCase(),
+        };
+
+        const url = id ? `${API_BASE}/gp/${id}` : `${API_BASE}/gp`;
+
         const response = await fetch(url, {
-          method: isEdit ? "PUT" : "POST",
+          method: id ? "PUT" : "POST",
           headers: getHeaders(),
-          body: JSON.stringify(taskData),
+          body: JSON.stringify(payloadWithoutId), // id removed
         });
         if (!response.ok) {
           if (response.status === 401) {
@@ -151,7 +162,6 @@ const TaskModel = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
             <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
               <AlignLeft className="w-4 h-4 mr-2 text-rose-500" /> Description
             </label>
-
             <textarea
               name="description"
               value={taskData.description}
@@ -228,6 +238,7 @@ const TaskModel = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
               </label>
             </div>
           </div>
+
           <button
             type="submit"
             disabled={loading}

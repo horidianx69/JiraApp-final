@@ -2,11 +2,11 @@ const Task = require("../models/taskModel");
 
 exports.createTask = async (req, res) => {
   try {
-    const { title, desc, priority, dueDate, completed } = req.body;
+    const { title, description, priority, dueDate, completed } = req.body;
 
     const task = new Task({
       title,
-      desc,
+      description,
       priority,
       dueDate,
       completed: completed === "Yes" || completed === true,
@@ -51,21 +51,25 @@ exports.getTaskById = async (req, res) => {
 
 exports.updateTask = async (req, res) => {
   try {
-    const data = { ...req.body };
+    const { id, ...data } = req.body;
+
     if (data.completed !== undefined) {
       data.completed = data.completed === "Yes" || data.completed === true;
     }
+
     const updated = await Task.findOneAndUpdate(
       { _id: req.params.id, owner: req.user.id },
       data,
       { new: true, runValidators: true }
     );
-    if (!updated){
+
+    if (!updated) {
       return res
         .status(404)
         .json({ success: false, message: "Task not found or not yours" });
     }
-    res.json({task:updated})
+
+    res.json(updated);
   } catch (error) {
     res.status(400).json({ success: false, message: error.message });
   }

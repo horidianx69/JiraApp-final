@@ -23,6 +23,8 @@ taskRouter
   .route("/gp/:id")
   .get(authMiddleware, getTaskById)
   .put(authMiddleware, updateTask)
+  .patch(authMiddleware, updateTask)  
   .delete(authMiddleware, deleteTask);
+
 
 module.exports = taskRouter;

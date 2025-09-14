@@ -31,21 +31,39 @@ const TaskItem = ({ task, onRefresh, onLogout, showCompletedCheckbox = true }) =
     return { Authorization: `Bearer ${token}` };
   };
 
-  const handleComplete = async () => {
-    const newStatus = !isCompleted;
-    try {
-      await axios.patch(
-        `${API_BASE}/${task.id || task._id}`,
-        { completed: newStatus },
-        { headers: getAuthHeaders() }
-      );
-      setIsCompleted(newStatus);
-      onRefresh?.();
-    } catch (error) {
-      console.error("Error updating task status:", error);
-      if (error.response?.status === 401) onLogout?.();
-    }
-  };
+  // const handleComplete = async () => {
+  //   const newStatus = !isCompleted;
+  //   try {
+  //     await axios.patch(
+  //       `${API_BASE}/${task.id || task._id}`,
+  //       { completed: newStatus },
+  //       { headers: getAuthHeaders() }
+  //     );
+  //     setIsCompleted(newStatus);
+  //     onRefresh?.();
+  //   } catch (error) {
+  //     console.error("Error updating task status:", error);
+  //     if (error.response?.status === 401) onLogout?.();
+  //   }
+  // };
+
+const handleComplete = async () => {
+  const newStatus = !isCompleted;
+  try {
+    await axios.patch(
+      `${API_BASE}/gp/${task.id || task._id}`, 
+      { completed: newStatus },
+      { headers: getAuthHeaders() }
+    );
+    setIsCompleted(newStatus);
+    onRefresh?.();
+  } catch (error) {
+    console.error("Error updating task status:", error);
+    if (error.response?.status === 401) onLogout?.();
+  }
+};
+
+
 
   const handleDelete = async () => {
     try {

@@ -75,19 +75,39 @@ const Dashboard = () => {
     });
   }, [tasks, filter]);
 
+  // const handleTaskSave = useCallback(
+  //   async (taskData) => {
+  //     try {
+  //       if (taskData.id) await fetch(`${API_BASE}/${taskData.id}/gp`, taskData);
+  //       refreshTasks();
+  //       setShowModal(false);
+  //       setSelectedTask(null);
+  //     } catch (error) {
+  //       console.error("Error saving task:", error);
+  //     }
+  //   },
+  //   [refreshTasks]
+  // );
   const handleTaskSave = useCallback(
-    async (taskData) => {
-      try {
-        if (taskData.id) await fetch(`${API_BASE}/${taskData.id}/gp`, taskData);
-        refreshTasks();
-        setShowModal(false);
-        setSelectedTask(null);
-      } catch (error) {
-        console.error("Error saving task:", error);
+  async (taskData) => {
+    try {
+      if (taskData.id) {
+        await fetch(`${API_BASE}/gp/${taskData.id}`, {
+          method: "PATCH", // partial update
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(taskData), // include completed status
+        });
       }
-    },
-    [refreshTasks]
-  );
+      refreshTasks();
+      setShowModal(false);
+      setSelectedTask(null);
+    } catch (error) {
+      console.error("Error saving task:", error);
+    }
+  },
+  [refreshTasks]
+);
+
 
   return (
     <div className={WRAPPER}>
@@ -199,7 +219,7 @@ const Dashboard = () => {
                 key={task._id || task.id}
                 task={task}
                 onRefresh={refreshTasks}
-                showCompleteCheckbox
+                showCompletedCheckbox
                 onEdit={() => {
                   setSelectedTask(task);
                   setShowModal(true);

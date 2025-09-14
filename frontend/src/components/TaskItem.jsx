@@ -32,14 +32,14 @@ const TaskItem = ({ task, onRefresh, onLogout, showCompletedCheckbox = true }) =
   };
 
   const handleComplete = async () => {
-    const newStatus = isCompleted ? "No" : "Yes";
+    const newStatus = !isCompleted;
     try {
       await axios.patch(
         `${API_BASE}/${task.id || task._id}`,
         { completed: newStatus },
         { headers: getAuthHeaders() }
       );
-      setIsCompleted(!isCompleted);
+      setIsCompleted(newStatus);
       onRefresh?.();
     } catch (error) {
       console.error("Error updating task status:", error);

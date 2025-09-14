@@ -16,7 +16,7 @@ import {
 
 const API_BASE = "http://localhost:3000/api/tasks";
 
-const TaskModel = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
+const TaskModel = ({ isOpen, onClose, taskToEdit, onSave, onLogout,onRefresh }) => {
   const [taskData, setTaskData] = useState(DEFAULT_TASK);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -101,6 +101,7 @@ const TaskModel = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
         }
         const save = await response.json();
         onSave?.(save);
+        onRefresh?.(save)
         onClose();
       } catch (error) {
         console.log("Error submitting form:", error);

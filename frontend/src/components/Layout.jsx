@@ -223,7 +223,7 @@ const Layout = ({ onLogout, user }) => {
                     </div>
                     <p className="text-sm text-gray-500">No recent Activity</p>
                     <p className="text-sm text-gray-500">
-                      Tasks will appear here
+                      Projects will appear here
                     </p>
                   </div>
                 )}

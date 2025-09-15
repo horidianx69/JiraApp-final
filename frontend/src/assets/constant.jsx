@@ -115,8 +115,8 @@ export const securityFields = [
 // SIDEBAR 
 export const menuItems = [
     { text: "Dashboard", path: "/", icon: <Home className="w-5 h-5" /> },
-    { text: "Pending Tasks", path: "/pending", icon: <ListChecks className="w-5 h-5" /> },
-    { text: "Completed Tasks", path: "/complete", icon: <CheckCircle2 className="w-5 h-5" /> },
+    { text: "Pending Projects", path: "/pending", icon: <ListChecks className="w-5 h-5" /> },
+    { text: "Completed Projects", path: "/complete", icon: <CheckCircle2 className="w-5 h-5" /> },
 ]
 
 // export const SIDEBAR_CLASSES = {
@@ -131,7 +131,7 @@ export const menuItems = [
 
 export const SIDEBAR_CLASSES = {
   desktop:
-    "hidden md:flex flex-col fixed h-full w-20 lg:w-64 bg-white/90 backdrop-blur-sm border-r border-purple-100 shadow-sm z-20 transition-all duration-300",
+    "hidden md:flex flex-col fixed h-full w-20 lg:w-64 bg-white/90 backdrop-blur-sm border-r border-rose-100 shadow-sm z-20 transition-all duration-300",
 
 mobileButton:
   "md:hidden bg-rose-600 text-white p-2 rounded-full shadow hover:bg-rose-700 transition ml-4 mt-4 ",
@@ -141,30 +141,30 @@ mobileButton:
     "fixed inset-0 bg-black/40 backdrop-blur-sm",
 
   mobileDrawer:
-    "absolute top-0 left-0 w-64 h-full bg-white/90 backdrop-blur-md border-r border-purple-100 shadow-lg z-50 p-4 flex flex-col space-y-6",
+    "absolute top-0 left-0 w-64 h-full bg-white/90 backdrop-blur-md border-r border-rose-100 shadow-lg z-50 p-4 flex flex-col space-y-6",
 };
 
 
 export const LINK_CLASSES = {
     base: "group flex items-center px-4 py-3 rounded-xl transition-all duration-300",
-    active: "bg-gradient-to-r from-purple-50 to-fuchsia-50 border-l-4 border-purple-500 text-purple-700 font-medium shadow-sm",
-    inactive: "hover:bg-purple-50/50 text-gray-600 hover:text-purple-700",
-    icon: "transition-transform duration-300 group-hover:scale-110 text-purple-500",
+    active: "bg-gradient-to-r from-red-50 to-rose-50 border-l-4 border-red-500 text-rose-700 font-medium shadow-sm",
+    inactive: "hover:bg-rose-50/50 text-gray-600 hover:text-red-700",
+    icon: "transition-transform duration-300 group-hover:scale-110 text-rose-500",
     text: "text-sm font-medium ml-2",
 }
 
 export const PRODUCTIVITY_CARD = {
-    container: "bg-purple-50/50 rounded-xl p-3 border border-purple-100",
+    container: "bg-rose-50/50 rounded-xl p-3 border rose-purple-100",
     header: "flex items-center justify-between mb-2",
-    label: "text-xs font-semibold text-purple-700",
-    badge: "text-xs bg-purple-200 text-purple-700 px-2 py-0.5 rounded-full",
-    barBg: "w-full h-2 bg-purple-200 rounded-full overflow-hidden",
-    barFg: "h-full bg-gradient-to-r from-fuchsia-500 to-purple-600 animate-pulse",
+    label: "text-xs font-semibold text-rose-700",
+    badge: "text-xs bg-purple-200 text-rose-700 px-2 py-0.5 rounded-full",
+    barBg: "w-full h-2 bg-rose-200 rounded-full overflow-hidden",
+    barFg: "h-full bg-gradient-to-r from-red-500 to-rose-600 animate-pulse",
 }
 
 export const TIP_CARD = {
-    container: "bg-gradient-to-r from-purple-50 to-fuchsia-50 rounded-xl p-4 border border-purple-100",
-    iconWrapper: "p-2 bg-purple-100 rounded-lg",
+    container: "bg-gradient-to-r from-red-50 to-rose-50 rounded-xl p-4 border border-rose-100",
+    iconWrapper: "p-2 bg-rose-100 rounded-lg",
     title: "text-sm font-semibold text-gray-800",
     text: "text-xs text-gray-600 mt-1",
 }
@@ -179,7 +179,7 @@ export const FIELDS = [
 export const Inputwrapper =
     "flex items-center border border-purple-100 rounded-lg px-3 py-2.5 focus-within:ring-2 focus-within:ring-purple-500 focus-within:border-purple-500 transition-all duration-200"
 export const BUTTONCLASSES =
-    "w-full bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white text-sm font-semibold py-2.5 rounded-lg hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2"
+    "w-full bg-gradient-to-r from-red-500 to-rose-600 text-white text-sm font-semibold py-2.5 rounded-lg hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2"
 export const MESSAGE_SUCCESS = "bg-green-50 text-green-600 p-3 rounded-lg text-sm mb-4 border border-green-100"
 export const MESSAGE_ERROR = "bg-red-50 text-red-600 p-3 rounded-lg text-sm mb-4 border border-red-100"
 
@@ -207,7 +207,7 @@ export const getPriorityBadgeColor = (priority) => {
 export const WRAPPER = "p-4 md:p-6 min-h-screen overflow-hidden"
 export const HEADER = "flex flex-col md:flex-row justify-between items-start md:items-center mb-4 md:mb-6 gap-3"
 export const ADD_BUTTON =
-    "flex items-center gap-2 bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white px-4 py-2 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 w-full md:w-auto justify-center text-sm md:text-base"
+    "flex items-center gap-2 bg-gradient-to-r from-red-500 to-purple-600 text-white px-4 py-2 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 w-full md:w-auto justify-center text-sm md:text-base"
 export const STATS_GRID = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-4 md:mb-6"
 export const STAT_CARD =
     "p-3 md:p-4 rounded-xl bg-white shadow-sm border border-purple-100 hover:shadow-md transition-all duration-300 min-w-0"

@@ -10,6 +10,7 @@ import {
 } from "../assets/constant";
 import LiquidEther from "./ui/LiquidEther";
 
+
 const API_URL = "http://localhost:3000";
 const INITIAL_FORM = { name: "", email: "", password: "" };
 
@@ -50,6 +51,7 @@ const SignUp = ({ onSwitchMode }) => {
 
   return (
       <div className="max-w-md w-full bg-white shadow-lg border border-purple-100 rounded-xl p-8">
+
         
         <div className="mb-6 text-center">
           <div className="w-16 h-16 bg-gradient-to-br from-rose-400 to-red-600 rounded-full mx-auto flex items-center justify-center mb-4">

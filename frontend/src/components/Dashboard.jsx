@@ -116,14 +116,14 @@ const Dashboard = () => {
         <div className="min-w-0">
           <h1 className="text-xl md:text-3xl font-bold text-gray-800 flex items-center gap-2">
             <HomeIcon className="text-rose-500 w-5 h-5 md:w-6 md:h-6 shrink-0" />
-            <span className="truncate font-bold">Tasks Overview</span>
+            <span className="truncate font-bold">Projects Overview</span>
           </h1>
           <p className="text-sm mt-1 ml-7 text-gray-600 truncate">
             Welcome to your dashboard
           </p>
         </div>
         <button onClick={() => setShowModal(true)} className={ADD_BUTTON}>
-          <Plus /> Create Task
+          <Plus /> New Project
         </button>
       </div>
 
